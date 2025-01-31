@@ -1,11 +1,18 @@
 <template>
-  <div>
-    <div class="text-3xl font-bold text-teal-400 underline cursor-pointer">Hello Tailwind CSS!</div>
-    <UserPen :size="32" class="inline-block ml-2" />
+  <div class="flex h-screen">
+
+    <div ref="toolbarRef" class="w-100 border-2 border-red-500">
+      <ToolBar class=""></ToolBar>
+    </div>
+
+    <div class="flex-1 border-2 border-blue-500">
+      <CanvasComponent></CanvasComponent>
+    </div>
+
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
-import { UserPen } from 'lucide-vue-next';
+import ToolBar from './ToolBar.vue';
+import CanvasComponent from './CanvasComponent.vue';
 </script>
 <style scoped></style>
