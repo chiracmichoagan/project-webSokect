@@ -1,5 +1,5 @@
 <template>
-   <canvas @mousedown="satrtDrawing" @mousemove="draw" ref="canvasRef" class="border w-full  h-screen border-2 border-dark">
+   <canvas @mousedown="satrtDrawing" @mousemove="draw" ref="canvasRef" class="border w-full   border-dark">
 
    </canvas>
 </template>
