@@ -1,11 +1,11 @@
 <template>
-  <div class="flex h-screen">
+  <div class="flex gap-4 w-full h-screen">
 
-    <div ref="toolbarRef" class="w-100 border-2 border-red-500">
+    <div  class="w-[25%]">
       <ToolBar class=""></ToolBar>
     </div>
 
-    <div class="flex-1 border-2 border-blue-500">
+    <div class="flex-1  w-[85%]">
       <CanvasComponent></CanvasComponent>
     </div>
 
