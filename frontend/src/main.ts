@@ -10,5 +10,5 @@ app.use(router)
 app.use(pinia)
 app.mount('#app')
 
-const clientWs = new WebSocket('ws://localhost:3000')
+// const clientWs = new WebSocket('ws://localhost:3000')
 
