@@ -5,7 +5,7 @@
       <ToolBar class=""></ToolBar>
     </div>
 
-    <div class="flex-1  w-[85%]">
+    <div class="flex-1 border-l-2 border-blue-500 w-[85%]">
       <CanvasComponent></CanvasComponent>
     </div>
 

@@ -5,7 +5,7 @@
       @mouseup="stopDrawing" 
       @mouseout="stopDrawing" 
       ref="canvasRef" 
-      class="border-2 canvas border-red-500">
+      class="border-2">
    </canvas>
 </template>
 
