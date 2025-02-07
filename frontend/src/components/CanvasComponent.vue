@@ -1,10 +1,5 @@
 <template>
-   <canvas 
-      @mousedown="startDrawing" 
-      @mousemove="draw" 
-      @mouseup="stopDrawing" 
-      @mouseout="stopDrawing" 
-      ref="canvasRef" 
+   <canvas @mousedown="startDrawing" @mousemove="draw" @mouseup="stopDrawing" @mouseout="stopDrawing" ref="canvasRef"
       class="border-2">
    </canvas>
 </template>
@@ -13,12 +8,15 @@
 import { ref, onMounted } from 'vue';
 import { drawLine } from '@/utils/canvas';
 import { useDrawingStore } from '@/stores/useDrawingStore';
+import { useSocketStore } from '@/stores/useSocketStore';
+
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 const lastPoint = ref<{ x: number, y: number } | null>(null);
 // const isDrawing = ref(false);
 
 const drawingStore = useDrawingStore();
+const socketStore = useSocketStore();
 
 const resizeCanvas = () => {
    const canvas = canvasRef.value;
@@ -26,7 +24,7 @@ const resizeCanvas = () => {
    if (!canvas || !toolbar) return;
 
    canvas.width = window.innerWidth - toolbar.clientWidth;
-   canvas.height = window.innerHeight; 
+   canvas.height = window.innerHeight;
 
 }
 
@@ -55,10 +53,10 @@ const draw = (e: MouseEvent) => {
       y: e.clientY - rect.top
    };
 
-   if(!lastPoint.value) return;
+   if (!lastPoint.value) return;
    drawLine(ctx, lastPoint.value, currentPoint, drawingStore.color, drawingStore.lineWidth, drawingStore.isEraser);
-
-   lastPoint.value = currentPoint; 
+   socketStore.emit('draw', { points: [lastPoint.value, currentPoint], color: drawingStore.color, lineWidth: drawingStore.lineWidth, isEraser: drawingStore.isEraser });
+   lastPoint.value = currentPoint;
 }
 
 // Arrêter le dessin
@@ -68,13 +66,21 @@ const stopDrawing = () => {
 }
 
 onMounted(() => {
+   socketStore.connect();
+   //Ecout de l'événement draw
+   socketStore.socket?.on('draw',
+      (data) => {
+         console.log(data);
+
+      }
+   )
    window.addEventListener('resize', resizeCanvas);
-   
+
    resizeCanvas();
    const canvas = canvasRef.value;
    if (!canvas) return;
    const ctx = canvas.getContext('2d');
-   
+
 });
 </script>
 

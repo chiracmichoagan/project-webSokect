@@ -3,7 +3,7 @@ import express from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { createServer } from "http";
-import {WebSocketServer} from "ws";
+// import {WebSocketServer} from "ws";
 import { Server } from "socket.io";
 const app = express();
 const port = 3000;
@@ -27,6 +27,11 @@ app.use(express.static(join(__dirname, "../dist")));
 // Ecoute de l'evenement connection
 io.on("connection", (socket) => {
   console.log("Un client est connecté", socket.id);
+  socket.on("draw", (data) => {
+    socket.broadcast.emit('draw', {
+      data 
+    })
+  });
   // socket.on("message", (message) => {
   //   console.log("message", message);
     // io.emit("message", message);
